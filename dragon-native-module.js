@@ -1,84 +1,61 @@
-const dragonNative = ((_) => {
+'user strict'
+
+const type_android = 'ANDROID';
+const type_ios = 'iOS'
+const type_web = 'WEB'
+
+var dragonNative = {
+    requestSNSLogin : function(param) {
+        switch (getHandler()) {
+            case type_android : androidHandler.requestSNSLogin(param);
+                                console.log("androidHandler.requestSNSLogin(param)");
+                                break;
+            case type_ios : iOSHandler.postMessage({ command : "requestSNSLogin", value : param}); 
+                                console.log("");
+                                break;
+       }
+    },
+    requestRegisterPushToken : function() {
+        switch(getHandler()) {
+            case type_android : androidHandler.requestRegisterPushToken();
+                                    console.log("androidHandler.requestRegisterPushToken()");
+                                    break;
+            case type_ios : iOSHandler.postMessage({command: "requestRegisterPushToken"})
+                                alert(`iOSHandler.postMessage({command: "requestRegisterPushToken"})`) 
+                                break;
+        }
+    },
+    requestLogout : function() {
+        switch(getHandler()) {
+            case type_android : androidHandler.requestLogout();
+                                    console.log("androidHandler.requestLogout()");
+                                    break;
+            case type_ios : iOSHandler.postMessage({command: "requestLogout"})
+                                alert(`iOSHandler.postMessage({command: "requestLogout"})`) 
+                                break;
+        }
+    }
+}
+
+function getHandler() {
   if (typeof window === 'undefined') {
     // SSR일 때 작동하지 않도록 방어
-    return;
+    return console.log("SSR.");
   }
-  const iOSHandlerName = 'dragon';
-  const iOSDomain = 'leisure';
-  const iOSHandler = ((_) => {
-    let tWebkit;
-    let tHandler;
-    let tiOSHandler;
-    if (
-      !!(tWebkit = window['webkit']) &&
-      !!(tHandler = tWebkit.messageHandlers) &&
-      !!(tiOSHandler = tHandler[iOSHandlerName])
-    ) {
-      return tiOSHandler;
-    }
-  })();
-  const isNativeIOS = !!iOSHandler;
-  const iOSAdapter = {
-    type: 'IOS',
-    requestSNSLogin: (param) => {
-        iOSHandler.postMessage({ command : "requestSNSLogin", value : param});
-        alert(`iOSHandler.postMessage({ command : "requestSNSLogin", value : param});`)
-    },
-    requestRegisterPushToken: () => {
-        iOSHandler.postMessage({command: "requestRegisterPushToken"})
-        alert(`iOSHandler.postMessage({command: "requestRegisterPushToken"})`)
-    },
-    requestLogout: () => {
-        iOSHandler.postMessage({command: "requestRegisterPushToken"})
-        alert(`iOSHandler.postMessage({command: "requestRegisterPushToken"})`)
-    }
-  };
-
-  const androidHandlerName = 'dragon';
-  const androidHandler = ((_) => {
-    let tAndroidHandler;
-    if (!!(tAndroidHandler = window[androidHandlerName])) {
-      return tAndroidHandler;
-    }
-  })();
-  const isNativeAndroid = !!androidHandler;
-  const andoidAdapter = {
-    type: 'ANDROID',
-    requestSNSLogin: (param) => {
-        androidHandler.requestSNSLogin(param);
-        alert(`androidHandler.requestSNSLogin(param);`)
-    },
-    requestRegisterPushToken: () => {
-        androidHandler.requestRegisterPushToken();
-        alert(`androidHandler.requestRegisterPushToken();`)
-    },
-    requestLogout: () => {
-        androidHandler.requestLogout();
-        alert(`androidHandler.requestLogout();`)
-    }
-  };
-
-  const webAdapter = {
-    type: 'WEB',
-    kinesis: (param) => {
-      // 웹 클라이언트는 별거 없음
-      console.log(param);
-    },
-  };
-
-  let tDelegate;
-  return new class {
-    constructor(delegate) {
-      tDelegate = delegate;
-      console.log(`tDelegate.type: ${tDelegate.type}`);
-    }
-    get type() {
-      if (!!tDelegate) return tDelegate.type;
-      return 'WEB';
-    }
-    kinesis(param) {
-      if (!!tDelegate) tDelegate.kinesis(param);
-    }
-  }(!!window ? isNativeIOS ? iOSAdapter : isNativeAndroid ? andoidAdapter : webAdapter : webAdapter);
-});
-export { dragonNative };
+  
+if (window.dragon) {
+    // Call Android interface
+    androidHandler = window.dragon;
+    return type_android;
+  } else if (window.webkit
+      && window.webkit.messageHandlers
+      && window.webkit.messageHandlers.dragon) {
+    // Call iOS interface
+    iOSHandler = window.webkit.messageHandlers.dragon;
+    return type_ios;
+  } else {
+    // No Android or iOS interface found
+    console.log("No native APIs found.");
+    return type_web
+  }
+}

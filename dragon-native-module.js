@@ -8,30 +8,30 @@ var dragonNative = {
     requestSNSLogin : function(param) {
         switch (getHandler()) {
             case type_android : androidHandler.requestSNSLogin(param);
-                                console.log("androidHandler.requestSNSLogin(param)");
+                                alert("androidHandler.requestSNSLogin(param)");
                                 break;
             case type_ios : iOSHandler.postMessage({ command : "requestSNSLogin", value : param}); 
-                                console.log('iOSHandler.postMessage({ command : "requestSNSLogin", value : param});');
+                                alert('iOSHandler.postMessage({ command : "requestSNSLogin", value : param});');
                                 break;
        }
     },
     requestRegisterPushToken : function() {
         switch(getHandler()) {
             case type_android : androidHandler.requestRegisterPushToken();
-                                    console.log("androidHandler.requestRegisterPushToken()");
+                                    alert("androidHandler.requestRegisterPushToken()");
                                     break;
             case type_ios : iOSHandler.postMessage({command: "requestRegisterPushToken"})
-                                console(`iOSHandler.postMessage({command: "requestRegisterPushToken"})`) 
+                                alert(`iOSHandler.postMessage({command: "requestRegisterPushToken"})`) 
                                 break;
         }
     },
     requestLogout : function() {
         switch(getHandler()) {
             case type_android : androidHandler.requestLogout();
-                                    console.log("androidHandler.requestLogout()");
+                                    alert("androidHandler.requestLogout()");
                                     break;
             case type_ios : iOSHandler.postMessage({command: "requestLogout"})
-                                console(`iOSHandler.postMessage({command: "requestLogout"})`) 
+                                alert(`iOSHandler.postMessage({command: "requestLogout"})`) 
                                 break;
         }
     }

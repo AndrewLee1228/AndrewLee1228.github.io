@@ -11,7 +11,7 @@ var dragonNative = {
                                 console.log("androidHandler.requestSNSLogin(param)");
                                 break;
             case type_ios : iOSHandler.postMessage({ command : "requestSNSLogin", value : param}); 
-                                console.log("");
+                                console.log('iOSHandler.postMessage({ command : "requestSNSLogin", value : param});');
                                 break;
        }
     },
@@ -21,7 +21,7 @@ var dragonNative = {
                                     console.log("androidHandler.requestRegisterPushToken()");
                                     break;
             case type_ios : iOSHandler.postMessage({command: "requestRegisterPushToken"})
-                                alert(`iOSHandler.postMessage({command: "requestRegisterPushToken"})`) 
+                                console(`iOSHandler.postMessage({command: "requestRegisterPushToken"})`) 
                                 break;
         }
     },
@@ -31,7 +31,7 @@ var dragonNative = {
                                     console.log("androidHandler.requestLogout()");
                                     break;
             case type_ios : iOSHandler.postMessage({command: "requestLogout"})
-                                alert(`iOSHandler.postMessage({command: "requestLogout"})`) 
+                                console(`iOSHandler.postMessage({command: "requestLogout"})`) 
                                 break;
         }
     }

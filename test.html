@@ -4,6 +4,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="stylesheet" type="text/css" href="https://codepen.io/YoungHee/pen/pZGBBM.css">
+    <script src="/dragon-native-module.js"></script>
 </head>
 
 <body width="100%">
@@ -28,8 +29,6 @@
     <input type="file" id="getfile" accept="image/*">
         
         <script>
-            import { dragonNative } from 'https://andrewlee1228.github.io/dragon-native-module.js';
-            
             
       var file = document.querySelector('#getfile');
 
@@ -48,11 +47,7 @@ file.onchange = function () {
             
 
 function button_signin(loginType) {
-   var message = {
-     command: 'requestSNSLogin',
-     value: loginType
-  };
-  window.webkit.messageHandlers.dragon.postMessage(message);
+  dragonNative.requestSNSLogin(loginType)  
 }
 
 function loginSuccess(result) {
@@ -68,11 +63,7 @@ function updatePushToken(token) {
 }
 
 function logout() {
-  alert('로그아웃 요청');
- var message = {
-     command: 'requestLogout'
-  };
-  window.webkit.messageHandlers.dragon.postMessage('');
+  dragonNative.requestLogout()
 }
     </script>
 </body>

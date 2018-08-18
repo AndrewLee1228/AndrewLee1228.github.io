@@ -1,4 +1,4 @@
-export const dragonNative = ((_) => {
+const dragonNative = ((_) => {
   if (typeof window === 'undefined') {
     // SSR일 때 작동하지 않도록 방어
     return;
@@ -80,4 +80,5 @@ export const dragonNative = ((_) => {
       if (!!tDelegate) tDelegate.kinesis(param);
     }
   }(!!window ? isNativeIOS ? iOSAdapter : isNativeAndroid ? andoidAdapter : webAdapter : webAdapter);
-});            
+});
+export { dragonNative };

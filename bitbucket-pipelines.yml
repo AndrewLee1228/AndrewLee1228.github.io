@@ -13,7 +13,6 @@ pipelines:
        script:
          - yarn global add vuepress@next
          - yarn add -D vuepress@next
-         - yarn src:dev
          - yarn src:build
          - ls
 

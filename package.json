@@ -1,0 +1,10 @@
+{
+  "devDependencies": {
+    "firebase-tools": "^6.2.2",
+    "vuepress": "^1.0.0-alpha.30"
+  },
+  "scripts": {
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
+  }
+}

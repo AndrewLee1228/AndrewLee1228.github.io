@@ -14,6 +14,7 @@ pipelines:
          - yarn global add vuepress@next
          - yarn add -D vuepress@next
          - yarn src:build
+         - cd src/.vuepress/dist
          - ls
 
 

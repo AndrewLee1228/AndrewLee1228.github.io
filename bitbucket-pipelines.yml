@@ -14,7 +14,8 @@ pipelines:
          # Bitbuck reop branch 에서 커밋메시지 추출
          - echo "# Gathering commit message\n"
          - bitbuckCommitMessage=$(git log -1 --pretty=%B)
-         - echo " > $bitbuckCommitMessage (".getenv('BITBUCKET_BRANCH').")\n\n"
+         - bitbuckCommitMessage="$bitbuckCommitMessage $BITBUCKET_BRANCH"
+         - echo " > $bitbuckCommitMessage"
          #Vuepress 추가
          - yarn global add vuepress@next
          - yarn add -D vuepress@next

@@ -17,10 +17,15 @@ pipelines:
          #Vuepress 빌드
          - yarn src:build 
          - ls src/.vuepress/dist -al
+         # Bitbuck reop branch 에서 커밋메시지 추출
+         - echo "# Gathering commit message\n"
+         - bitbuckCommitMessage='git log -1 --pretty=%B'
+         - bitbuckCommitMessage=preg_replace('/["\'\n\r]/', '', $bitbuckCommitMessage)
+         - echo " > $bitbuckCommitMessage (".getenv('BITBUCKET_BRANCH').")\n\n"
          ##Github(GitHub Pages repository) 로 보내기
          # dist 디렉토리 git 프로젝트로 초기화
          - git init
-         # 원격저장소 연결
+         # GitHub 원격저장소 연결
          - git remote set-url origin https://andrewlee1228:Math2028@github.com/AndrewLee1228/AndrewLee1228.github.io.git
          # 최신 gh-pages 브랜치 정보를 가져와 rebase를 진행한다.
          - git pull origin gh-pages --rebase
@@ -29,9 +34,8 @@ pipelines:
          # src/.vuepress/dist 폴더를 지워준다.
          - git clean -fx src/.vuepress/dist
          # add & commit 
-         - DESC=`블로그가 업데이트 되었습니다.`
          - git add .
-         - git commit -a -m "$DESC"
+         - git commit -a -m "$bitbuckCommitMessage"
          # gh-pages 브랜치에 PUSH!
          - git push origin gh-pages
          

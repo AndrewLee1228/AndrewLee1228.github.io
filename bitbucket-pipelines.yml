@@ -11,17 +11,16 @@ pipelines:
        caches:
          - node
        script:
+         # Bitbuck reop branch 에서 커밋메시지 추출
+         - echo "# Gathering commit message\n"
+         - bitbuckCommitMessage=$(git log -1 --pretty=%B)
+         - echo " > $bitbuckCommitMessage (".getenv('BITBUCKET_BRANCH').")\n\n"
          #Vuepress 추가
          - yarn global add vuepress@next
          - yarn add -D vuepress@next
          #Vuepress 빌드
          - yarn src:build 
          - ls src/.vuepress/dist -al
-         # Bitbuck reop branch 에서 커밋메시지 추출
-         - echo "# Gathering commit message\n"
-         - bitbuckCommitMessage='git log -1 --pretty=%B'
-         - bitbuckCommitMessage=preg_replace('/["\'\n\r]/', '', $bitbuckCommitMessage)
-         - echo " > $bitbuckCommitMessage (".getenv('BITBUCKET_BRANCH').")\n\n"
          ##Github(GitHub Pages repository) 로 보내기
          # dist 디렉토리 git 프로젝트로 초기화
          - git init

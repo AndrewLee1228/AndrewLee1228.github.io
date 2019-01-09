@@ -14,7 +14,7 @@ pipelines:
          # Bitbuck reop branch 에서 커밋메시지 추출
          - echo "# Gathering commit message\n"
          - bitbuckCommitMessage=$(git log -1 --pretty=%B)
-         - bitbuckCommitMessage="$bitbuckCommitMessage $BITBUCKET_BRANCH"
+         - bitbuckCommitMessage='$bitbuckCommitMessage $BITBUCKET_BRANCH'
          - echo " > $bitbuckCommitMessage"
          #Vuepress 추가
          - yarn global add vuepress@next
@@ -31,7 +31,8 @@ pipelines:
          - git pull origin gh-pages --rebase
          # Vuepress build로 생긴 src/.vuepress/dist 폴더 아래 모든 정보를 현재 위치로 가져온다.
          - cp -R src/.vuepress/dist/* .
-         # src/.vuepress/dist 폴더를 지워준다.
+         # node_modules폴더와 src/.vuepress/dist 폴더를 지워준다.
+         - git clean -fx node_modules
          - git clean -fx src/.vuepress/dist
          # add & commit 
          - git add .

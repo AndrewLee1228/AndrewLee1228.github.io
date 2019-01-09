@@ -11,11 +11,31 @@ pipelines:
        caches:
          - node
        script:
+         #Vuepress 추가
          - yarn global add vuepress@next
          - yarn add -D vuepress@next
-         - yarn src:build
-         - cd src/.vuepress/dist
-         - ls
+         #Vuepress 빌드
+         - yarn src:build 
+         - ls src/.vuepress/dist -al
+         ##Github(GitHub Pages repository) 로 보내기
+         # dist 디렉토리 git 프로젝트로 초기화
+         - git init
+         # 원격저장소 연결
+         - git remote set-url origin https://andrewlee1228:Math2028@github.com/AndrewLee1228/AndrewLee1228.github.io.git
+         # 최신 gh-pages 브랜치 정보를 가져와 rebase를 진행한다.
+         - git pull origin gh-pages --rebase
+         # Vuepress build로 생긴 src/.vuepress/dist 폴더 아래 모든 정보를 현재 위치로 가져온다.
+         - cp -R src/.vuepress/dist/* .
+         # src/.vuepress/dist 폴더를 지워준다.
+         - git clean -fx src/.vuepress/dist
+         # add & commit 
+         - DESC=`블로그가 업데이트 되었습니다.`
+         - git add .
+         - git commit -a -m "$DESC"
+         # gh-pages 브랜치에 PUSH!
+         - git push origin gh-pages
+         
+         
 
 
 

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="https://codepen.io/YoungHee/pen/pZGBBM.css">
+    <script src="/smarthong-native-module.js"></script>
+</head>
+
+<body width="100%">
+    <h3>JS <-> APP Test Page</h3>
+
+    <div class="container">
+        <ul>
+            <li>
+                <button class="btn btn-submit" onclick="registerAccessToken(`eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9`);">Call
+                    registerAccessToken()</button>
+            </li>
+            <li>
+                <button class="btn btn-submit" onclick="requestLogout();">Call requestLogout()</button>
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        ////////////////////////////
+        // JS -> Native 함수 호출
+        ////////////////////////////
+
+        function registerAccessToken(token) {
+            smNative.registerAccessToken(token)
+        }
+
+        function requestLogout() {
+            smNative.requestLogout()
+        }
+
+        ////////////////////////////
+        // Native -> JS 함수 호출
+        ////////////////////////////
+
+        function updatePushToken(fcmtoken, deviceId) {
+            alert('(JS 함수 호출) token : ' + token + 'deviceId : ' + deviceId);
+        }
+
+        function requestLogin(token) {
+            alert('(JS 함수 호출) 로그인 시도 token : /n' + token)
+        }
+    </script>
+</body>
+
+</html>

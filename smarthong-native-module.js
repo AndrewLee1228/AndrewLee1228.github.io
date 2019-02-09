@@ -16,14 +16,16 @@ var smNative = {
         }
     },
     requestLogout: function () {
-        switch (getHandler()) {
-            case type_android: androidHandler.requestLogout();
-                console.log("androidHandler.requestLogout()");
-                break;
-            case type_ios: iOSHandler.requestLogout.postMessage()
-                console.log(`iOSHandler.requestLogout.postMessage()`)
-                break;
-        }
+        window.webkit.messageHandlers.requestLogout.postMessage()
+        console.log(`iOSHandler.requestLogout.postMessage()`)
+//         switch (getHandler()) {
+//             case type_android: androidHandler.requestLogout();
+//                 console.log("androidHandler.requestLogout()");
+//                 break;
+//             case type_ios: iOSHandler.requestLogout.postMessage()
+//                 console.log(`iOSHandler.requestLogout.postMessage()`)
+//                 break;
+//         }
     }
 }
 

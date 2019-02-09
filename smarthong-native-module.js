@@ -20,8 +20,8 @@ var smNative = {
             case type_android: androidHandler.requestLogout();
                 console.log("androidHandler.requestLogout()");
                 break;
-            case type_ios: iOSHandler.postMessage({ command: "requestLogout" })
-                console.log(`iOSHandler.postMessage({command: "requestLogout"})`)
+            case type_ios: iOSHandler.requestLogout.postMessage()
+                console.log(`iOSHandler.requestLogout.postMessage()`)
                 break;
         }
     }
@@ -41,7 +41,7 @@ if (window.smarthong) {
       && window.webkit.messageHandlers
       && window.webkit.messageHandlers.smarthong) {
     // Call iOS interface
-    iOSHandler = window.webkit.messageHandlers.smarthong;
+    iOSHandler = window.webkit.messageHandlers;
     return type_ios;
   } else {
     // No Android or iOS interface found

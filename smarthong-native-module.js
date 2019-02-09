@@ -20,8 +20,8 @@ var smNative = {
             case type_android: androidHandler.requestLogout();
                 console.log("androidHandler.requestLogout()");
                 break;
-            case type_ios: iOSHandler.requestLogout.postMessage();
-                console.log(`iOSHandler.requestLogout.postMessage()`);
+            case type_ios: iOSHandler.requestLogout.postMessage("");
+                console.log(`iOSHandler.requestLogout.postMessage("")`);
                 break;
         }
     }

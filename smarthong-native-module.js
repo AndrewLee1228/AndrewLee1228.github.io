@@ -38,8 +38,7 @@ if (window.smarthong) {
     androidHandler = window.smarthong;
     return type_android;
   } else if (window.webkit
-      && window.webkit.messageHandlers
-      && window.webkit.messageHandlers.smarthong) {
+      && window.webkit.messageHandlers) {
     // Call iOS interface
     iOSHandler = window.webkit.messageHandlers;
     return type_ios;

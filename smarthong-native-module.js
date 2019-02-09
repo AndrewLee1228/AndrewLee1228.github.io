@@ -10,8 +10,8 @@ var smNative = {
             case type_android: androidHandler.registerAccessToken(param);
                 console.log("androidHandler.registerAccessToken(param)");
                 break;
-            case type_ios: iOSHandler.postMessage({ command: "registerAccessToken", value: param });
-                console.log('iOSHandler.postMessage({ command : "registerAccessToken", value : param});');
+            case type_ios: iOSHandler.registerAccessToken.postMessage(param);
+                console.log('iOSHandler.registerAccessToken.postMessage(param);');
                 break;
         }
     },

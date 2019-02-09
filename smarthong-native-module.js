@@ -29,7 +29,7 @@ var smNative = {
 
 function getHandler() {
   if (typeof window === 'undefined') {
-    // SSR(Server Side Rendering)일 때 작동하지 않도록 방어
+    // SSR(Server Side Rendering)일 때 작동하지 않도록 방어?
     return console.log("SSR.");
   }
   
